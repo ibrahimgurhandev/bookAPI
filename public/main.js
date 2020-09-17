@@ -35,26 +35,8 @@ function searchBooks() {
     .then((data) => {
       console.log(data);
       renderAllBook(data);
+      setUpBookMarkButtons()
 
-
-      var btn = document.getElementsByClassName("btn");
-      Array.from(btn).forEach(function (element) {
-        element.addEventListener('click', function () {
-          fetch('addbook', {
-              method: 'post',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                'name': element.dataset.title,
-                'author': element.dataset.author
-              })
-            })
-            .then(function (response) {
-              window.location.reload()
-            })
-        })
-      })
     })
 }
 
@@ -66,10 +48,11 @@ function renderAllBook(data) {
       .map(
         (book) =>{
           const bookName = book.volumeInfo.title
-          const bookAuthor =book.volumeInfo.authors[0]
-
+          const bookAuthor =book.volumeInfo.authors || "no Author"
          return( `<div class="eachBook">
-          <strong>${book.volumeInfo.title}</strong> 
+          <strong>${bookName}</strong> 
+          <strong>${bookAuthor}</strong> 
+
           <button class="btn" data-title="${bookName}" data-author="${bookAuthor}"> Bookmark <span><i class="fa fa-plus-circle"
           aria-hidden="true"></i></span> </button>
           <img src="${book.volumeInfo.imageLinks.smallThumbnail}" />
@@ -79,5 +62,25 @@ function renderAllBook(data) {
       .join("")}
   </div>
 `
+}
 
+function setUpBookMarkButtons() {
+  var btn = document.getElementsByClassName("btn");
+  Array.from(btn).forEach(function (element) {
+    element.addEventListener('click', function () {
+      fetch('addbook', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            'name': element.dataset.title,
+            'author': element.dataset.author
+          })
+        })
+        .then(function (response) {
+          window.location.reload()
+        })
+    })
+  })
 }
