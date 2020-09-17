@@ -1,0 +1,28 @@
+body {
+  padding-top: 80px;
+  word-wrap: break-word;
+}
+
+img {
+  height: 200px;
+}
+
+.btm {
+  margin-top: 90px;
+}
+
+.grid {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.eachBook {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-bottom: 8px;
+}
+
+button {
+  margin-bottom: 8px;
+}

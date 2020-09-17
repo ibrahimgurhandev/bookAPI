@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Bookmark Your Favorite Books</title>
+  <link rel="stylesheet"
+    href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+    href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="page-header text-center">
+      <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+      <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+
+    <div class="row">
+
+
+      <div class="col-sm-12">
+
+        <h2>Search books</h2>
+
+
+        <input id="search" type="text" placeholder="Type book here"
+          name="name">
+        <button id="searchBtn">Submit</button>
+        <section id="bookResults"> </section>
+
+
+
+      </div>
+
+
+    </div>
+
+
+
+
+  </div>
+
+  <div>
+    <h3>Saved Books</h3>
+    <ul class="messages">
+      <% for(var i=0; i<books.length; i++) {%>
+      <li class="message">
+        <span><%= books[i].name %></span><span> by
+          <%= books[i].author %></span>
+
+        <span><i class="fa fa-trash"
+            aria-hidden="true"></i></span>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+
+  <!-- LOCAL INFORMATION -->
+  <div class="col-sm-6 btm ">
+    <div class="well">
+      <h3><span class="fa fa-user"></span> Local</h3>
+
+      <% if (user.local.email) { %>
+      <p>
+        <strong>id</strong>: <%= user._id %><br>
+        <strong>email</strong>: <%= user.local.email %><br>
+        <strong>password</strong>: <%= user.local.password %>
+      </p>
+
+      <a href="/unlink/local" class="btn btn-default">Unlink</a>
+      <% } else { %>
+      <a href="/connect/local" class="btn btn-default">Connect
+        Local</a>
+      <% } %>
+
+    </div>
+  </div>
+
+
+
+
+
+  <script src="main.js"></script>
+
+</body>
+
+</html>
