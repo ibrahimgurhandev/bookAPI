@@ -24,7 +24,21 @@ module.exports = function (app, passport, db) {
     res.redirect('/');
   });
 
-  // message board routes ===============================================================
+
+  app.get('/searchBooks', function (req, res) {
+    const bookName = req.params.bookName
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookName}`)
+      .then(res => res.json())
+      .then(data => {
+        res.end(JSON.stringify(data));
+      })
+  });
+
+
+
+  const fetch = require('node-fetch');
+
+
 
   app.post('/addbook', (req, res) => {
     db.collection('books').save({
@@ -61,6 +75,13 @@ module.exports = function (app, passport, db) {
       message: req.flash('loginMessage')
     });
   });
+
+
+
+
+
+
+
 
   // process the login form
   app.post('/login', passport.authenticate('local-login', {
