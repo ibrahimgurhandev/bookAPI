@@ -27,9 +27,8 @@ searchBtn.addEventListener('click', searchBooks)
 
 function searchBooks() {
   let bookName = document.querySelector("#search").value;
-  let bookResults = document.querySelector("#bookResults")
   fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${bookName}`
+      `searchBooks?bookName=${bookName}`
     )
     .then((res) => res.json())
     .then((data) => {
@@ -41,7 +40,7 @@ function searchBooks() {
 }
 
 function renderAllBook(data) {
-
+  let bookResults = document.querySelector("#bookResults")
   bookResults.innerHTML = `
   <div class="grid">
     ${data.items
@@ -63,6 +62,11 @@ function renderAllBook(data) {
   </div>
 `
 }
+
+
+
+
+
 
 function setUpBookMarkButtons() {
   var btn = document.getElementsByClassName("btn");
