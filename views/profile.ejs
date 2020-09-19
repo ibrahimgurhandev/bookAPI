@@ -3,12 +3,35 @@
 
 <head>
   <title>Bookmark Your Favorite Books</title>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet"
     href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
   <link rel="stylesheet"
     href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="vendor/bootstrap/css/bootstrap.min.css"
+    rel="stylesheet">
+  <link href="css/heroic-features.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+
 </head>
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">BOOKMARK</a>
+    <button class="navbar-toggler" type="button"
+      data-toggle="collapse" data-target="#navbarResponsive"
+      aria-controls="navbarResponsive" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  </div>
+</nav>
+
+
 
 <body>
   <div class="container">
@@ -39,27 +62,39 @@
 
     </div>
 
+    <section class="gap"></section>
 
+    <h1>BOOKMARKED BOOKS</h1>
 
-
-  </div>
-
-  <div>
-    <h3>Saved Books</h3>
-    <ul class="messages">
+    <div class="row text-center">
       <% for(var i=0; i<books.length; i++) {%>
-      <li class="message">
-        <span><%= books[i].name %></span><span> by
-          <%= books[i].author %></span>
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100">
+          <img class="card-img-top savedImage"
+            src="<%= books[i].image %>" />
 
-        <span><i class="fa fa-trash"
-            aria-hidden="true"></i></span>
-      </li>
+          <div class="card-body">
+            <h4 class="card-title"><%= books[i].name %></h4>
+            <p class="card-text"> by
+              <%= books[i].author %></p>
+            <button class="btn btn-primary trash">Remove from
+              Bookmarks</button>
+          </div>
+
+
+        </div>
+      </div>
       <% } %>
-    </ul>
+    </div>
+
   </div>
 
-  <!-- LOCAL INFORMATION -->
+
+
+
+
+
+  <!-- LOCAL INFORMATION
   <div class="col-sm-6 btm ">
     <div class="well">
       <h3><span class="fa fa-user"></span> Local</h3>
@@ -79,9 +114,13 @@
 
     </div>
   </div>
+ -->
 
 
 
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 
   <script src="main.js"></script>

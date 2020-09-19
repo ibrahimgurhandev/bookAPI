@@ -26,8 +26,9 @@ module.exports = function (app, passport, db) {
 
 
   app.get('/searchBooks', function (req, res) {
-    const bookName = req.params.bookName
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookName}`)
+    const bookquery = req.query.bookName
+    console.log(bookquery)
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookquery}`)
       .then(res => res.json())
       .then(data => {
         res.end(JSON.stringify(data));
@@ -43,7 +44,8 @@ module.exports = function (app, passport, db) {
   app.post('/addbook', (req, res) => {
     db.collection('books').save({
       name: req.body.name,
-      author: req.body.author
+      author: req.body.author,
+      image: req.body.image
     }, (err, result) => {
       if (err) return console.log(err)
       console.log('saved to database')
