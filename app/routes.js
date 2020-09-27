@@ -9,7 +9,10 @@ module.exports = function (app, passport, db) {
 
   // PROFILE SECTION =========================
   app.get('/profile', isLoggedIn, function (req, res) {
-    db.collection('books').find().toArray((err, result) => {
+    console.log(req.user.local.username)
+    db.collection('books').find({
+      username: req.user.local.username
+    }).toArray((err, result) => {
       if (err) return console.log(err)
       res.render('profile.ejs', {
         user: req.user,
@@ -17,6 +20,9 @@ module.exports = function (app, passport, db) {
       })
     })
   });
+
+
+  const fetch = require('node-fetch');
 
   // LOGOUT ==============================
   app.get('/logout', function (req, res) {
@@ -36,16 +42,9 @@ module.exports = function (app, passport, db) {
   });
 
 
-
-
-
-
-  const fetch = require('node-fetch');
-
-
-
   app.post('/addbook', (req, res) => {
     db.collection('books').save({
+      username: req.user.local.username,
       name: req.body.name,
       author: req.body.author,
       image: req.body.image
@@ -55,8 +54,6 @@ module.exports = function (app, passport, db) {
       res.redirect('/profile')
     })
   })
-
-
 
 
   app.delete('/deletebook', (req, res) => {
@@ -80,11 +77,6 @@ module.exports = function (app, passport, db) {
       message: req.flash('loginMessage')
     });
   });
-
-
-
-
-
 
 
 
@@ -120,6 +112,7 @@ module.exports = function (app, passport, db) {
   // local -----------------------------------
   app.get('/unlink/local', isLoggedIn, function (req, res) {
     var user = req.user;
+    user.local.username = undefined;
     user.local.email = undefined;
     user.local.password = undefined;
     user.save(function (err) {
